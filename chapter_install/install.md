@@ -5,12 +5,13 @@ To get you up and running with hands-on experiences, we'll need you to set up wi
 
 ## Obtaining Source Codes
 
-The source code package containing all notebooks is available at https://d2l.ai/d2l-en.zip. Please download it and extract it into a folder. For example, on Linux/macos, if you have both `wget` and `unzip` installed, you can do it through:
+The source code package containing all notebooks is available at https://classic.d2l.ai/d2l-en.zip. Please download it and extract it into a folder. For example, on Linux/macos, if you have both `wget` and `unzip` installed, you can do it through:
 
 ```
-wget https://d2l.ai/d2l-en.zip
+wget https://classic.d2l.ai/d2l-en.zip
 unzip d2l-en.zip -d d2l-en
 ```
+
 
 ## Installing Running Environment
 
@@ -19,6 +20,7 @@ If you have both Python 3.5 or older and pip installed, the easiest way to insta
 ```bash
 pip install d2l==0.10.3
 ```
+
 
 If unfortunately something went wrong, please check
 
@@ -32,11 +34,13 @@ Before installing `mxnet`, please first check if you are able to access GPUs. If
 pip install mxnet
 ```
 
+
 Once both packages are installed, we now open the Jupyter notebook by
 
 ```bash
 jupyter notebook
 ```
+
 
 At this point open http://localhost:8888 (which usually opens automatically) in the browser, then you can view and run the code in each section of the book.
 
@@ -44,9 +48,8 @@ At this point open http://localhost:8888 (which usually opens automatically) in 
 
 Both this book and MXNet are keeping improving. You may want to check a new version from time to time.
 
-1. This URL  https://d2l.ai/d2l-en.zip always points to the contents.
-2. You can upgrade `d2l` by `pip install d2l -U` or even just install the latest version from Github by `pip install git+https://github.com/d2l-ai/d2l-en`.
-3. MXNet can be upgraded by `pip install MXNet -U` as well.
+1. This URL  https://classic.d2l.ai/d2l-en.zip always points to the contents.
+2. MXNet can be upgraded by `pip install MXNet -U` as well.
 
 ## GPU Support
 
@@ -60,11 +63,13 @@ If you have installed the CPU-only version, then remove it first by
 pip uninstall mxnet
 ```
 
+
 Then you need to find the CUDA version you installed. You may check it through `nvcc --version` or `cat /usr/local/cuda/version.txt`. Assume you have installed CUDA 10.1, then you can install the according MXNet version by
 
 ```bash
 pip install mxnet-cu101
 ```
+
 
 You may change the last digits according to your CUDA version, e.g. `cu100` for CUDA 10.0 and `cu90` for CUDA 9.0. You can find all available MXNet versions by `pip search mxnet`.
 

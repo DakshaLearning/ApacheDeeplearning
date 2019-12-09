@@ -105,6 +105,7 @@ As shown in :numref:`fig_connect`, after the instance state turns green, right-c
 ssh -i "/path/to/key.pem" ubuntu@ec2-xx-xxx-xxx-xxx.y.compute.amazonaws.com
 ```
 
+
 Here, "/path/to/key.pem" is the path of the locally-stored key used to access the instance. When the command line prompts "Are you sure you want to continue connecting (yes/no)", enter "yes" and press Enter to log into the instance.
 
 It is a good idea to update the instance with the latest drivers.
@@ -113,6 +114,7 @@ It is a good idea to update the instance with the latest drivers.
 sudo apt update
 sudo apt dist-upgrade
 ```
+
 
 Your server is ready now.
 
@@ -125,6 +127,7 @@ sudo rm /usr/local/cuda
 sudo ln -s /usr/local/cuda-10.0 /usr/local/cuda
 ```
 
+
 This selects CUDA 10.0 as the default.
 
 If you prefer to take the scenic route, please follow the path below. First, update and install the package needed for compilation.
@@ -134,6 +137,7 @@ sudo apt update
 sudo apt dist-upgrade
 sudo apt install -y build-essential git libgfortran3
 ```
+
 
 NVIDIA frequently releases updates to CUDA (typically one major version per year). Here we download CUDA 10.0. Visit NVIDIA's official repository at (https://developer.nvidia.com/cuda-toolkit-archive) to find the download link of CUDA 10.0 as shown below.
 
@@ -149,6 +153,7 @@ After copying the download address in the browser, download and install CUDA 10.
 wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux
 sudo sh cuda_10.0.130_410.48_linux
 ```
+
 
 Press "Ctrl+C" to jump out of the document and answer the following questions.
 
@@ -184,17 +189,20 @@ Install the CUDA 10.0 Samples?
 (y)es/(n)o/(q)uit: n
 ```
 
+
 After installing the program, run the following command to view the instance GPU.
 
 ```
 nvidia-smi
 ```
 
+
 Finally, add CUDA to the library path to help other libraries find it.
 
 ```
 echo "export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:/usr/local/cuda/lib64" >> ~/.bashrc
 ```
+
 
 ## Install MXNet and Download the D2L Notebooks
 
@@ -209,6 +217,7 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 sudo sh Miniconda3-latest-Linux-x86_64.sh
 ```
 
+
 Now, you need to answer the following questions:
 
 ```
@@ -219,27 +228,33 @@ to PATH in your /home/ubuntu/.bashrc ? [yes|no]
 [no] >>> yes
 ```
 
+
 After installation, run `source ~/.bashrc` once to activate CUDA and Conda. Next, download the code for this book and install and activate the Conda environment. To use GPUs you need to update MXNet to request the CUDA 10.0 build.
 
 ```
 sudo apt install unzip
 mkdir d2l-en && cd d2l-en
-wget https://www.d2l.ai/d2l-en.zip
+wget https://classic.d2l.ai/d2l-en.zip
 unzip d2l-en.zip && rm d2l-en.zip
-sed -i 's/mxnet/mxnet-cu100/g' environment.yml
-conda env create -f environment.yml
-source activate gluon
+
+conda create --name d2l -y
+conda activate d2l
+conda install python=3.7 pip -y
+pip install mxnet-cu100
+pip install d2l==0.10.3
 ```
+
 
 You can test quickly whether everything went well as follows:
 
 ```
-$ conda activate gluon
+$ conda activate d2l
 $ python
 >>> import mxnet as mx
 >>> ctx = mx.gpu(0)
 >>> x = mx.ndarray.zeros(shape=(1024,1024), ctx=ctx)
 ```
+
 
 ## Running Jupyter
 
@@ -248,9 +263,10 @@ To run Jupyter remotely you need to use SSH port forwarding. After all, the serv
 ```
 # This command must be run in the local command line
 ssh -i "/path/to/key.pem" ubuntu@ec2-xx-xxx-xxx-xxx.y.compute.amazonaws.com -L 8889:localhost:8888
-conda activate gluon
+conda activate d2l
 jupyter notebook
 ```
+
 
 :numref:`fig_jupyter` shows the possible output after you run Jupyter Notebook. The last row is the URL for port 8888.
 
